@@ -1,0 +1,61 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:400|Roboto:100);
+
+.block {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  float: left;
+}
+
+.text {
+  color: #1abc9c;
+  font-size: 20px;
+  font-family: 'Roboto Condensed', serif;
+  font-weight: 40;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.digit {
+  color: #000080;
+  font-size: 40px;
+  font-weight: 900;
+  font-family: 'Roboto', serif;
+  margin: 1px;
+  text-align: center;
+}
+
+.digit-danger {
+  color: red;
+  font-size: 40px;
+  font-weight: 40;
+  font-family: 'Condensed', serif;
+  margin: 1px;
+  text-align: center;
+}
+
+.digit-input {
+  color: #000080;
+  font-size: 40px;
+  font-weight: 900;
+  font-family: 'Roboto', serif;
+  margin: 0 auto;
+  max-width: 80px;
+  text-align: center;
+}
+
+.block-input {
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  float: left;
+}
+
+.stain {
+  border-radius: 15px;
+}
+
+.stain-highlight{
+  background-color: red;
+  border-radius: 15px;
+}

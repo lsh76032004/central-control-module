@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>관리자 페이지/LG 신입사원 우수자 34기</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/vendor/schedule.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">우수자 과정 34기</a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+              <!-- 로그인 -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="/"><i class="fa fa-dashboard fa-fw"></i> Summary</a>
+                        </li>
+                        <li>
+                            <a href="attendance"><i class="fa fa-table fa-fw"></i> Attendance</a>
+                        </li>
+
+                        <li>
+                          <a href="blank"><i class="fa fa-files-o fa-fw"></i> Lecture note<span class="fa arrow"></span></a>
+                        </li>
+                        <li>
+                            <a href="admin"><i class="fa fa-home fa-fw"></i> Admin page</a>
+                        </li>
+                        <!-- /.nav-second-level -->
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+          <div class="row">
+              <div class="col-lg-12">
+                  <h1 class="page-header">관리자 페이지</h1>
+              </div>
+          </div>
+
+            <div class="col-lg-11">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        학생 관리
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#student_list" data-toggle="tab" aria-expanded="true">학생 정보 조회</a></li>
+                            <li><a href="#student_add" data-toggle="tab" aria-expanded="false">학생 정보 추가</a></li>
+                            <li><a href="#time_set" data-toggle="tab" aria-expanded="false">수업 시간 설정</a></li>
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade active in" id="student_list">
+                                <div class="col-lg-10">
+                                    <div class="table-responsive">
+                                      <table class="table table-bordered table-hover table-striped">
+                                          <thead>
+                                            <style>
+                                              th {
+                                                text-align: center;
+                                            }</style>
+                                              <tr>
+                                                  <!-- <th>#</th> -->
+                                                  <th>ID</th>
+                                                  <th>이름</th>
+                                                  <th>기수</th>
+                                                  <th>휴대폰 거치 상태</th>
+                                                  <th>삭제</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody style="text-align:center;">
+                                            <% docs.forEach(function(item, index){%>
+                                              <tr>
+                                                  <td><%= item.ID %></td>
+                                                  <td><%= item.Name %></td>
+                                                  <td><%= item.group %></td>
+                                                  <td><%= item.Phone %></td>
+                                                  <td>
+                                                    <button type="button" class="btn btn-danger deleteStudent">Click</button>
+                                                  </td>
+                                              </tr>
+                                            <% })%>
+                                          </tbody>
+                                      </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="student_add">
+                                <form action="admin/stduentAdd" role="form" method ="post">
+                                    <div class="form-group has-success col-lg-5">
+                                      <label>ID</label>
+                                      <input type="text" class="form-control" name="student_id">
+
+                                      <label>이름</label>
+                                      <input type="text" class="form-control" name="student_name">
+
+                                      <label>기수</label>
+                                      <input type="text" class="form-control" name="student_group">
+                                      <br />
+                                      <input id="student_Write_Btn" type="submit" class="btn btn-primary btn-lg"></button>
+
+                                    </div>
+                                  </form>
+                            </div>
+                            <div class="tab-pane fade" id="time_set">
+                              <div class="col-lg-12">
+                                  <h1 class="page-header">수업 시간표 조회</h1>
+                              </div>
+                              <template id="TimeDisplay">
+                                  <div>
+                                    <div class="row justify-content-start">
+                                      <div class="col-8 col-sm-6 col-md-9 col-lg-8">
+                                        <div class="block">
+                                          <p class="digit">{{ startHour }}</p>
+                                          <p class="text">Hour</p>
+                                        </div>
+                                        <div class="block">
+                                          <p class="digit">{{ startMinute }}</p>
+                                          <p class="text">Minute</p>
+                                        </div>
+                                        <div class="block">
+                                          <p class="digit">{{ startPeriod }}</p>
+                                          <p class="text">AM/PM</p>
+                                        </div>
+                                        <div class="block">
+                                          <p class="digit"> - </p>
+                                        </div>
+                                        <div class="block">
+                                          <p class="digit">{{ endHour }}</p>
+                                          <p class="text">Hour</p>
+                                        </div>
+                                        <div class="block">
+                                          <p class="digit">{{ endMinute }}</p>
+                                          <p class="text">Minute</p>
+                                        </div>
+                                        <div class="block">
+                                          <p class="digit">{{ endPeriod }}</p>
+                                          <p class="text">AM/PM</p>
+                                        </div>
+                                        <div v-if="appointment.booked" class="block">
+                                          <p class="digit-danger">!!</p>
+                                          <p class="text">Booked</p>
+                                        </div>
+                                        <div v-if="appointment.conflict" class="block">
+                                          <p class="digit-danger">!!</p>
+                                          <p class="text">In Use</p>
+                                        </div>
+                                        <div class="block" v-if="!appointment.booked">
+                                          <a class="btn" href="#" v-on:click="$emit('remove')">
+                                            <span class="fa-stack fa-lg">
+                                              <i class="fa fa-square fa-stack-2x text-danger"></i>
+                                              <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                          </a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <hr></hr>
+                                  </div>
+                                </template>
+
+                                <template id="TimeListDisplay">
+                                  <div>
+                                      <div v-if="msg"class="alert alert-warning alert-dismissible" role="alert">
+                                        {{ msg }}
+                                        <button type="button" class="close" v-on:click="clearConflictMsg" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-6 col-md-offset-3">
+                                      <div class="block-input">
+                                        <select v-model="hour" class="digit-input">
+                                          <option>01</option>
+                                          <option>02</option>
+                                          <option>03</option>
+                                          <option>04</option>
+                                          <option>05</option>
+                                          <option>06</option>
+                                          <option>07</option>
+                                          <option>08</option>
+                                          <option>09</option>
+                                          <option>10</option>
+                                          <option>11</option>
+                                          <option>12</option>
+                                        </select>
+                                        <p class="text">Hour</p>
+                                      </div>
+                                      <div class="block-input">
+                                        <select v-model="minute" class="digit-input">
+                                          <option>00</option>
+                                          <option>15</option>
+                                          <option>30</option>
+                                          <option>45</option>
+                                        </select>
+                                        <p class="text">Minute</p>
+                                      </div>
+                                      <div class="block-input">
+                                        <select v-model="period" class="digit-input">
+                                          <option>AM</option>
+                                          <option>PM</option>
+                                        </select>
+                                        <p class="text">AM/PM</p>
+                                      </div>
+                                      <div class="block-input">
+                                        <select v-model="length" class="digit-input">
+                                          <option>15</option>
+                                          <option>30</option>
+                                          <option>45</option>
+                                          <option>60</option>
+                                        </select>
+                                        <p class="text">Length</p>
+                                      </div>
+                                      <div class="block-input">
+                                        <button class="btn btn-success"v-on:click="addTime">ADD</button>
+                                      </div>
+                                    </div>
+                                    </div>
+                                    <div v-if="timeList.length != 0" class="stain container">
+                                      <time-display v-for="(appointment, index) in sortedTimeList"  v-bind:appointment="appointment" v-bind:key="appointment.startTime.hour"
+                                         v-on:remove="timeList.splice(index, 1)"  ></time-display>
+                                    </div>
+                                    <!-- {{ timeList }} -->
+                                  </div>
+                                </template>
+
+                                <div id="app" class="container">
+                                  <time-list v-bind:appointments="appointmentList">
+
+                                  </time-list>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+          </div>
+          <!-- /#page-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+
+
+<script type="text/javascript">
+            Vue.component("time-list", {
+              template: "#TimeListDisplay",
+              props:['appointments'],
+              data: function (){
+                return {
+                  msg: '',
+                  time:{
+                    hour: '08',
+                    minute: '00',
+                    period: "AM",
+                    length: '45',
+                  },
+                  timeList: this.appointments
+                }
+              },
+              computed:{
+                sortedTimeList: {
+                  get: function (){
+                    return this.timeList;//.sort((a, b) => moment(a.startTime).format("hh:mm") > moment(b.startTime).format("hh:mm"));
+                  }
+                },
+                startTime: {
+                  get: function (){
+                    time = this.time.hour + ":" + this.time.minute + ":00 " + this.time.period;
+                    temp = moment(time, "hh:mm:ss a");
+                    return temp.format();
+                  }
+                },
+                endTime: {
+                  get: function (){
+                    time = this.startTime;
+                    time = moment(time).add(this.length, "minute");
+                    return time.format();
+                  }
+                },
+                hour: {
+                  get: function () {
+                    return this.time.hour;
+                  },
+                  set: function (input){
+                    this.time.hour = input;
+                  }
+                },
+                minute: {
+                  get: function () {
+                    return this.time.minute;
+                  },
+                  set: function (input){
+                    this.time.minute = input;
+                  }
+                },
+                period: {
+                  get: function () {
+                    return this.time.period;
+                  },
+                  set: function (input){
+                    this.time.period = input;
+                  }
+                },
+                length: {
+                  get: function () {
+                    return this.time.length;
+                  },
+                  set: function (input){
+                    this.time.length = input;
+                  }
+                }
+              },
+              methods:{
+
+                clearConflictMsg: function (){
+                  this.msg = "";
+                  for(var i=0; i < this.timeList.length; i++) {
+                    this.timeList[i].conflict = false;
+                  }
+                },
+                addTime: function (){
+                  appointment = {
+                    booked: false,
+                    length: this.length,
+                    startTime: this.startTime,
+                    endTime: this.endTime,
+                    conflict: false
+                  }
+                  for(var i=0; i < this.timeList.length; i++) {
+                    this.timeList[i].conflict = false;
+                    if(moment(this.timeList[i].startTime).format("hh:mm") == moment(appointment.startTime).format("hh:mm")) {
+                      this.msg = "appointment time in use"
+                      this.timeList[i].conflict = true;
+                      return;
+                   }
+                  };
+                  this.timeList.push(appointment);
+                  this.hour = moment(appointment.endTime).format('hh');
+                  this.minute = moment(appointment.endTime).format('mm');
+                  this.period = moment(appointment.endTime).format('a').toUpperCase();
+                  this.msg = '';
+
+                  $.ajax({
+                         type: 'POST',
+                         data: JSON.stringify(appointment),
+                         contentType: 'application/json',
+                         url: 'http://localhost:3000/admin/timeAdd',
+                         success: function(data){
+
+                         // location.href = "http://localhost:3000/register"
+
+                         }
+                       });
+                }
+              }
+            });
+
+            Vue.component("time-display", {
+              template: "#TimeDisplay",
+              props:['appointment'],
+              computed:{
+                startHour: function (){
+                  return moment(this.appointment.startTime).format('hh');
+                },
+                startMinute: function (){
+                  return moment(this.appointment.startTime).format('mm');
+                },
+                startPeriod: function (){
+                  return moment(this.appointment.startTime).format('a').toUpperCase();
+                },
+                endHour: function (){
+                  return moment(this.appointment.endTime).format('hh');
+                },
+                endMinute: function (){
+                  return moment(this.appointment.endTime).format('mm');
+                },
+                endPeriod: function (){
+                  return moment(this.appointment.endTime).format('a').toUpperCase();
+                }
+              }
+            });
+
+            new Vue({
+              el: "#app",
+              data:{
+                appointmentList: <%- JSON.stringify(lecTime) %>
+
+              },
+
+            });
+            </script>
+
+
+
+
+
+
+
+    <!-- jQuery -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/dist/js/sb-admin-2.js"></script>
+
+
+
+</body>
+
+</html>

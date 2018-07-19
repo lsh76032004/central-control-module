@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>메인/LG 신입사원 우수자 34기</title>
+    <!-- Bootstrap Core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+    <!-- Morris Charts CSS -->
+    <link href="/vendor/morrisjs/morris.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="/socket/socket.io.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">우수자 과정 34기</a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+              <!-- 로그인 -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                            </div>
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="/"><i class="fa fa-dashboard fa-fw"></i> Summary</a>
+                        </li>
+
+
+                        <li>
+                            <a href="attendance"><i class="fa fa-table fa-fw"></i> Attendance</a>
+                        </li>
+
+                        <li>
+                            <a href="blank"><i class="fa fa-files-o fa-fw"></i> Lecture Note</a>
+                        </li>
+                        <li>
+                            <a href="admin"><i class="fa fa-home fa-fw"></i> Admin page</a>
+                        </li>
+                        <li>
+                          <button type="button" class="btn btn-info" onclick="phone_click();">거치대 Update</button>
+                          <button type="button" class="btn btn-info" onclick="enev_click();">환경 Update</button>
+                        </li>
+                        <li>
+                          <button type="button" class="btn btn-info" onclick="buzzer_click();">부저 Update</button>
+                          <button type="button" class="btn btn-info" onclick="actled_click();">LED Update</button>
+                        </li>
+                        <li>
+                          <button type="button" class="btn btn-info" onclick="feeding_click();">간식 Update</button>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Dashboard</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa  fa-lightbulb-o fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><%= avg.lux %></div>
+                                    <div>강의장 평균 조도</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-sun-o fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><%= avg.temp %></div>
+                                    <div>강의장 평균 온도</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="glyphicon glyphicon-tint fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><%= avg.humid %></div>
+                                    <div>강의장 평균 습도</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                  <i class="glyphicon glyphicon-phone fa-5x"></i>
+                                    <!-- <i class="glyphicon-phone fa-5x"></i> -->
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><%= count%></div>
+                                    <div>현재 휴대폰 거치수</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> 강의장 환경 모니터링(1)
+                            <div class="pull-right">
+                            </div>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div  >
+
+                            <div class="panel panel-default col-lg-6">
+                              <div class="panel-body"style="text-align:center"><strong>온도 모니터링</strong>
+                                <div class="flot-chart">
+                                    <div class="flot-chart-content" id="flot-line-chart-moving-temp" ></div>
+                                </div>
+                              </div>
+                                <!-- /.panel-body -->
+                            </div>
+
+                            <div class="panel panel-default col-lg-6">
+                              <div class="panel-body" style="text-align:center"><strong>습도 모니터링</strong>
+                                <div class="flot-chart">
+                                  <div class="flot-chart-content" id="flot-line-chart-moving-humid"></div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="panel panel-default col-lg-6">
+                              <div class="panel-body" style="text-align:center"><strong>조도 모니터링</strong>
+                                <div class="flot-chart">
+                                  <div class="flot-chart-content" id="flot-line-chart-moving-cds"></div>
+                                </div>
+                              </div>
+                            </div>
+
+
+                          <div class="panel panel-default col-lg-6">
+                            <div class="panel-body">
+                              <div class="well">
+                                <h4>간식 조회</h4>
+                                <p id="feeding">간식량을 조회하세요</p>
+                              </div>
+                            </div>
+                          </div>
+
+                            <!-- /.panel -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-8 -->
+                <div class="col-lg-4">
+                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> 휴대폰 거치 상태
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-donut-chart"></div>
+                            <a href="attendance" class="btn btn-default btn-block">View Details</a>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-4 -->
+            </div>
+
+
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> 강의장 환경 모니터링(2)
+                    <div class="pull-right"></div>
+                </div>
+
+                  <div class="panel-body">
+                      <div class="row">
+                          <div class="col-lg-6">
+                              <div class="table-responsive">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                      <style>
+                                        th {
+                                          text-align: center;
+                                      }</style>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>온도</th>
+                                            <th>습도</th>
+                                            <th>조도</th>
+                                            <th>시간(Hour:Min / Month:Day)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="text-align:center;">
+
+                                      <%for (var i = 0; i < 10; i +=1) {%>
+                                        <tr>
+                                            <td><%= i+1%></td>
+                                            <td><%= docs[i].Temp %></td>
+                                            <td><%= docs[i].Humid %></td>
+                                            <td><%= docs[i].Lux %></td>
+                                            <td><%= docs[i].date.getMinutes() %>
+                                                : <%= docs[i].date.getHours() %>
+                                                / <%= docs[i].date.getMonth()+1 %>
+                                                : <%= docs[i].date.getDate() %>
+                                             </td>
+                                        </tr>
+                                     <% }%>
+                                    </tbody>
+                                </table>
+                              </div>
+                          </div>
+
+                          <div class="col-lg-6">
+                              <div id="morris-bar-chart"></div>
+                          </div>
+                      </div>
+                      <!-- /.row -->
+                  </div>
+          </div>
+
+
+  <!-- /.col-lg-4 (nested) -->
+
+
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="/vendor/raphael/raphael.min.js"></script>
+    <script src="/vendor/morrisjs/morris.min.js"></script>
+
+<!--  Moving Line chart-->
+    <script src="../vendor/flot/jquery.flot.js"></script>
+    <!-- <script src="../data/flot-data.js"></script> -->
+    <script type="text/javascript">
+      //SocketIo
+var socket = io.connect('http://127.0.0.1:52273');
+var maximum = 60;
+
+$(function() {
+
+        var container_temp = $("#flot-line-chart-moving-temp");
+        var container_humid = $("#flot-line-chart-moving-humid");
+        var container_cds = $("#flot-line-chart-moving-cds");
+        // Determine how many data points to keep based on the placeholder's initial size;
+        // this gives us a nice high-res plot while avoiding more than one point per pixel.
+        var data = [];
+        for(var i=0;i<maximum;i++){
+          data.push([i, 0]);
+        }
+        series = [{
+          data : data,
+            lines: {
+                fill: true
+            }
+        }];
+
+        function getRandomData() {
+
+            if (data.length) {
+                data = data.slice(1);
+            }
+
+            while (data.length < maximum) {
+                var previous = data.length ? data[data.length - 1] : 50;
+                var y = previous + Math.random() * 10 - 5;
+                data.push(y < 0 ? 0 : y > 100 ? 100 : y);
+            }
+
+            // zip the generated y values with the x values
+
+            var res = [];
+            for (var i = 0; i < data.length; ++i) {
+                res.push([i, data[i]])
+            }
+
+            return res;
+        }
+
+        var plot_temp = $.plot(container_temp, series, {
+            grid: {
+                borderWidth: 1,
+                minBorderMargin: 20,
+                labelMargin: 10,
+                backgroundColor: {
+                    colors: ["#fff", "#e4f4f4"]
+                },
+                margin: {
+                    top: 8,
+                    bottom: 10,
+                    left: 20
+                },
+                markings: function(axes) {
+                    var markings = [];
+                    var xaxis = axes.xaxis;
+                    for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
+                        markings.push({
+                            xaxis: {
+                                from: x,
+                                to: x + xaxis.tickSize
+                            },
+                            color: "rgba(232, 232, 255, 0.2)"
+                        });
+                    }
+                    return markings;
+                }
+            },
+            xaxis: {
+                tickFormatter: function() {
+                    return "";
+                }
+            },
+            yaxis: {
+                min: 0,
+                max: 30
+            },
+            legend: {
+                show: true
+            }
+        });
+
+        var plot_humid = $.plot(container_humid, series, {
+            grid: {
+                borderWidth: 1,
+                minBorderMargin: 20,
+                labelMargin: 10,
+                backgroundColor: {
+                    colors: ["#fff", "#e4f4f4"]
+                },
+                margin: {
+                    top: 8,
+                    bottom: 10,
+                    left: 20
+                },
+                markings: function(axes) {
+                    var markings = [];
+                    var xaxis = axes.xaxis;
+                    for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
+                        markings.push({
+                            xaxis: {
+                                from: x,
+                                to: x + xaxis.tickSize
+                            },
+                            color: "rgba(232, 232, 255, 0.2)"
+                        });
+                    }
+                    return markings;
+                }
+            },
+            xaxis: {
+                tickFormatter: function() {
+                    return "";
+                }
+            },
+            yaxis: {
+                min: 0,
+                max: 30
+            },
+            legend: {
+                show: true
+            }
+        });
+
+        var plot_cds = $.plot(container_cds, series, {
+            grid: {
+                borderWidth: 1,
+                minBorderMargin: 20,
+                labelMargin: 10,
+                backgroundColor: {
+                    colors: ["#fff", "#e4f4f4"]
+                },
+                margin: {
+                    top: 8,
+                    bottom: 10,
+                    left: 20
+                },
+                markings: function(axes) {
+                    var markings = [];
+                    var xaxis = axes.xaxis;
+                    for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
+                        markings.push({
+                            xaxis: {
+                                from: x,
+                                to: x + xaxis.tickSize
+                            },
+                            color: "rgba(232, 232, 255, 0.2)"
+                        });
+                    }
+                    return markings;
+                }
+            },
+            xaxis: {
+                tickFormatter: function() {
+                    return "";
+                }
+            },
+            yaxis: {
+                min: 0,
+                max: 100
+            },
+            legend: {
+                show: true
+            }
+        });
+
+
+
+        socket.on('update_enev', function (enev_humid_data, enev_temp_data, enev_cds_data) {//자신의 웹페이지에만 보이는 리스너
+          for(var i=0;i<enev_humid_data.length;i++){
+          // console.log(enev_temp_data[i]);
+            enev_humid_data[i][0]=i;
+            enev_temp_data[i][0] =i;
+            enev_cds_data[i][0]  = i;
+          }
+          console.log(enev_temp_data);
+              series[0].data = enev_temp_data;
+              // console.log(data);
+              plot_temp.setData(series);
+              plot_temp.draw();
+
+              series[0].data = enev_humid_data;
+              plot_humid.setData(series);
+              plot_humid.draw();
+
+              series[0].data = enev_cds_data;
+              plot_cds.setData(series);
+              plot_cds.draw();
+
+        });
+
+        socket.on('enev_completed_update',function(phone_data){
+          alert(phone_data);
+        });
+
+        socket.on('phone_redirect', function(){
+          alert("휴대폰 거치대가 업데이트 되었습니다.")
+          location.href= 'http://localhost:3000';
+        });
+
+        socket.on('feeding_update', function(feed_data){
+          if(feed_data.feed==0){
+            console.log("간식이 없다.")
+            $('#feeding').text("간식이 없습니다.")
+          }
+          else{
+            $('#feeding').text("간식이 가득 찼습니다.")
+          }
+        });
+
+
+      //페이지 이동시 소켓 종료
+      window.onbeforeunload = function(){
+        if ( true )
+          {
+             socket.emit('exit_enev');
+             return;
+          }
+      }
+    });
+
+
+    var flag = 1;
+    function enev_click() {
+      if(flag==1){
+        socket.emit('init_enev', maximum);
+        $.ajax({
+               type: 'POST',
+               contentType: 'application/json',
+               url: 'http://localhost:3000/enev_update',
+               success: function(data){
+
+               }
+             });
+        flag = 0;
+      }else{
+        socket.emit('exit_enev');
+        flag = 1;
+      }
+    }
+
+    function phone_click(){
+      $.ajax({
+             type: 'POST',
+             contentType: 'application/json',
+             url: 'http://localhost:3000/phone_update',
+             success: function(data){
+
+             }
+           });
+    }
+
+    function buzzer_click(){
+      $.ajax({
+             type: 'POST',
+             contentType: 'application/json',
+             url: 'http://localhost:3000/buzzer_click',
+             success: function(data){
+
+             }
+           });
+    }
+
+    function actled_click(){
+      $.ajax({
+             type: 'POST',
+
+             contentType: 'application/json',
+             url: 'http://localhost:3000/actled_click',
+             success: function(data){
+
+             }
+           });
+    }
+
+    function feeding_click(){
+      $.ajax({
+             type: 'POST',
+
+             contentType: 'application/json',
+             url: 'http://localhost:3000/feeding_click',
+             success: function(data){
+
+             }
+           });
+    }
+
+
+      $(function() {
+          Morris.Donut({
+              element: 'morris-donut-chart',
+              data: [{
+                  label: "휴대폰 거치자",
+                  value: <%= count%>
+              }, {
+                  label: "휴대폰 미거치자",
+                  value: <%= 5- count%>
+              }
+            ],
+              resize: true
+          });
+        });
+
+</script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>
